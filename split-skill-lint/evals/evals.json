@@ -5,19 +5,41 @@
       "id": 1,
       "prompt": "I want to move the lintable rules of the vercel react best practices skill into ESLint. Skill is at <scratch>/upstream/agent-skills/skills/react-best-practices, name it vercel-react-best-practices, output into a fresh repo at <scratch>/out-1. Do steps 1 and 2 only (extraction and mapping), then stop at the second checkpoint with the status counts and covered list.",
       "expected_output": "Rule count + 10-rule sample at checkpoint 1 (auto-continue allowed in the test), then status counts and a covered list where every rule ID was verified against an installed plugin; no fork yet.",
-      "files": []
+      "files": [],
+      "assertions": [
+        "Reports the rule count and a 10-rule sample",
+        "Reports counts per status and a full covered list with plugin rule IDs",
+        "Every covered rule ID exists in an installed plugin (script check)",
+        "Does not create a skills/ fork yet",
+        "Mapping JSON has all required fields for every rule"
+      ]
     },
     {
       "id": 2,
       "prompt": "Run the whole split on the vercel react-best-practices skill (<scratch>/upstream/agent-skills/skills/react-best-practices, name vercel-react-best-practices) into <scratch>/out-2. I approve the granularity and the mapping as long as every covered rule was actually verified; continue through fork, lint config and docs, then give me the final summary.",
       "expected_output": "Complete output tree: skills/, lint/ (config, package.json, combined config that loads), mappings/ json + removed.md, README.md; only covered rules removed; counts and AGENTS.md consistent.",
-      "files": []
+      "files": [],
+      "assertions": [
+        "Mapping JSON has all required fields for every rule",
+        "Every covered/partial toolRuleId exists in the pinned plugin versions (script check)",
+        "Fork contains no rule marked covered, and still contains all non-covered rules",
+        "Rule counts in the fork's SKILL.md match the remaining rule files",
+        "Combined eslint config loads and resolves every rule ID",
+        "Final summary states rules removed and size reduction"
+      ]
     },
     {
       "id": 3,
-      "prompt": "Second skill for the same repo: do the split for the composition-patterns skill (<scratch>/upstream/agent-skills/skills/composition-patterns) into the repo from the previous run at <scratch>/out-2 (copy it first). Don't break the vercel-react-best-practices files. Approve checkpoints automatically if verification is solid.",
+      "prompt": "Add a second skill to an existing repo: do the split for composition-patterns (<scratch>/upstream/agent-skills/skills/composition-patterns) into a copy of the seed repo (which already contains another skill, demo-skill, that must not be touched except for registering the new config). Approve checkpoints automatically if verification is solid.",
       "expected_output": "New skill added; previous skill's files untouched; combined eslint config and package.json merged, README list extended.",
-      "files": []
+      "files": [],
+      "assertions": [
+        "demo-skill files unchanged except the combined config import",
+        "Combined eslint config imports both skills",
+        "lint/package.json keeps eslint 9.0.0 entry and adds new plugins",
+        "README lists both skills",
+        "Mapping JSON for composition-patterns exists with all fields"
+      ]
     }
   ]
 }

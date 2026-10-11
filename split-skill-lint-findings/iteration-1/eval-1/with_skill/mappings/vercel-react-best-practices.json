@@ -1,0 +1,742 @@
+[
+  {
+    "id": "async-cheap-condition-before-await",
+    "source": "rules/async-cheap-condition-before-await.md",
+    "rule": "Evaluate cheap synchronous conditions before awaiting a flag/remote value in `flag && cheap` checks.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No rule reorders await vs cheap condition.",
+    "notes": "Sketch: custom rule flagging `(await f()) && <sync expr>` where the right operand has no await. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "async-defer-await",
+    "source": "rules/async-defer-await.md",
+    "rule": "Move await into the branches where its result is actually used.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No rule detects awaited values unused on early-return paths.",
+    "notes": "Sketch: ast-grep for `const x = await ...` followed by an early `return` branch that does not reference x. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "async-parallel",
+    "source": "rules/async-parallel.md",
+    "rule": "Run independent awaits concurrently with Promise.all instead of sequential awaits.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "eslint core no-await-in-loop covers loops only, not the sequential-statement example.",
+    "notes": "Sketch: custom rule for consecutive `await` declarations where the later initializer does not reference earlier bindings. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "async-dependencies",
+    "source": "rules/async-dependencies.md",
+    "rule": "Use better-all for operations with partial dependencies to maximize parallelism.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Needs dependency-graph judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "async-api-routes",
+    "source": "rules/async-api-routes.md",
+    "rule": "In API routes/Server Actions start independent promises early and await late.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Requires judgment about independence of operations. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "async-suspense-boundaries",
+    "source": "rules/async-suspense-boundaries.md",
+    "rule": "Use Suspense boundaries instead of awaiting data in async components before returning JSX.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Architectural; needs judgment about layout/streaming. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "bundle-barrel-imports",
+    "source": "rules/bundle-barrel-imports.md",
+    "rule": "Import directly from source files instead of barrel files (or configure optimizePackageImports).",
+    "status": "unverified",
+    "tool": "eslint-plugin-barrel-files",
+    "toolRuleId": "barrel-files/avoid-importing-barrel-files",
+    "gap": "Rule exists but did not fire on a local 4-module barrel fixture even with maxModuleGraphSizeAllowed:2; resolution of real packages (lucide-react) not reproduced.",
+    "notes": "Skill itself recommends next.config optimizePackageImports, which no lint checks. Alternative: no-restricted-imports with a per-library pattern list (custom-possible). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "bundle-analyzable-paths:import-paths",
+    "source": "rules/bundle-analyzable-paths.md",
+    "rule": "Do not pass computed/variable paths to import(); use an explicit map of literal imports.",
+    "status": "partial",
+    "tool": "eslint-plugin-import-x",
+    "toolRuleId": "import-x/no-dynamic-require",
+    "gap": "Requires option {esmodule:true}. Fires on `import(MAP[x])`; the correct form is clean. Does not judge indirect cases (e.g. computed path inside a helper).",
+    "notes": "Fires on bad example, clean on good (import-x 4.17.1, esmodule:true). Without esmodule only require() is checked. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "bundle-analyzable-paths:fs-paths",
+    "source": "rules/bundle-analyzable-paths.md",
+    "rule": "Use literal file-system paths (path.join(process.cwd(), ...)) rather than variable-composed ones in server/build code.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: no-restricted-syntax / ast-grep for path.join/path.resolve/fs.* calls whose argument contains a non-literal beyond process.cwd(). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "bundle-dynamic-imports",
+    "source": "rules/bundle-dynamic-imports.md",
+    "rule": "Lazy-load large components with next/dynamic.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Needs knowledge of which components are heavy. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "bundle-defer-third-party",
+    "source": "rules/bundle-defer-third-party.md",
+    "rule": "Load analytics/logging/error tracking after hydration.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment about which libraries are non-critical. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "bundle-conditional",
+    "source": "rules/bundle-conditional.md",
+    "rule": "Load large data/modules only when the feature is activated.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment about feature activation. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "bundle-preload",
+    "source": "rules/bundle-preload.md",
+    "rule": "Preload heavy bundles on hover/focus based on user intent.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment/UX decision. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-auth-actions",
+    "source": "rules/server-auth-actions.md",
+    "rule": "Verify authentication/authorization inside each Server Action, not only in middleware/layouts.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Needs knowledge of the project auth function; a heuristic custom rule would be high false-positive. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-cache-react",
+    "source": "rules/server-cache-react.md",
+    "rule": "Use React.cache() for per-request deduplication of auth/db queries.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment about which functions are repeated per request. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-cache-lru",
+    "source": "rules/server-cache-lru.md",
+    "rule": "Use an LRU cache for cross-request caching of shared data.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-dedup-props",
+    "source": "rules/server-dedup-props.md",
+    "rule": "Do not transform arrays on the server before passing to client components (breaks reference dedup in RSC serialization).",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Needs whole-program/RSC-boundary reasoning. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-hoist-static-io",
+    "source": "rules/server-hoist-static-io.md",
+    "rule": "Hoist static I/O (fonts, logos, config reads) to module level in route handlers.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: custom rule for fs.readFile*/fetch of literal URL/path inside exported route handler functions. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-no-shared-module-state",
+    "source": "rules/server-no-shared-module-state.md",
+    "rule": "Do not use mutable module-level variables for request-scoped data in RSC/SSR.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule (no-restricted-syntax cannot tell request data from constants).",
+    "notes": "Sketch: flag assignments to module-level `let` bindings from inside exported functions/components in server files. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-parallel-fetching",
+    "source": "rules/server-parallel-fetching.md",
+    "rule": "Restructure RSC trees with composition so sibling data fetches run in parallel.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Architectural. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-parallel-nested-fetching",
+    "source": "rules/server-parallel-nested-fetching.md",
+    "rule": "Chain dependent fetches inside each item promise within Promise.all for nested fetching.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Needs dependency judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-serialization",
+    "source": "rules/server-serialization.md",
+    "rule": "Pass only the fields the client uses across the RSC boundary.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Needs cross-file usage analysis. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "server-after-nonblocking",
+    "source": "rules/server-after-nonblocking.md",
+    "rule": "Use Next.js after() for non-blocking logging/analytics side effects.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment about which work is non-blocking. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "client-event-listeners",
+    "source": "rules/client-event-listeners.md",
+    "rule": "Share global event listeners across component instances with useSWRSubscription.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment; depends on SWR usage. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "client-swr-dedup",
+    "source": "rules/client-swr-dedup.md",
+    "rule": "Use SWR for request deduplication/caching instead of ad hoc fetching.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag fetch() inside useEffect in client components (overlaps react-you-might-not-need-an-effect external-store rules but not fetch). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "client-localstorage-schema:version-keys",
+    "source": "rules/client-localstorage-schema.md",
+    "rule": "Add a version suffix/prefix to localStorage keys.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: custom rule requiring localStorage key literals to match /:v\\d+$/. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "client-localstorage-schema:minimal-fields",
+    "source": "rules/client-localstorage-schema.md",
+    "rule": "Store only needed fields in localStorage, not whole server objects.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Needs data-flow judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "client-localstorage-schema:try-catch",
+    "source": "rules/client-localstorage-schema.md",
+    "rule": "Wrap localStorage getItem/setItem in try/catch.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: custom rule flagging localStorage/sessionStorage member calls not nested in a TryStatement. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "client-passive-event-listeners",
+    "source": "rules/client-passive-event-listeners.md",
+    "rule": "Add {passive:true} to touch/wheel listeners that do not call preventDefault.",
+    "status": "partial",
+    "tool": "eslint-plugin-unicorn",
+    "toolRuleId": "unicorn/require-passive-events",
+    "gap": "Does not flag the skill's own incorrect example: handlers declared as named const arrows (inside the effect, or module-level) were not reported. Only inline function handlers were reported; unresolvable handlers (props, imports) are skipped.",
+    "notes": "Fires on inline handlers, not on named-reference handlers; clean when passive:true; respects preventDefault (unicorn 77.0.0). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-batch-dom-css",
+    "source": "rules/js-batch-dom-css.md",
+    "rule": "Avoid interleaving style writes with layout reads; batch style changes via classes/cssText.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag layout reads (offsetWidth, getBoundingClientRect, getComputedStyle) after `.style.*` writes in the same function. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-cache-function-results",
+    "source": "rules/js-cache-function-results.md",
+    "rule": "Cache repeated function calls with a module-level Map.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment about hotness/purity. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-cache-property-access",
+    "source": "rules/js-cache-property-access.md",
+    "rule": "Cache object property lookups in hot loops.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag repeated identical member chains (a.b.c) inside a loop body. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-cache-storage",
+    "source": "rules/js-cache-storage.md",
+    "rule": "Cache localStorage/sessionStorage/document.cookie reads in memory.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag repeated getItem calls with the same key in one function or inside loops. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-combine-iterations",
+    "source": "rules/js-combine-iterations.md",
+    "rule": "Combine multiple filter/map passes over the same array into one loop.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag two or more chained/adjacent .filter/.map on the same source identifier. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-early-exit",
+    "source": "rules/js-early-exit.md",
+    "rule": "Return early when the result is determined.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment (eslint no-else-return only covers a narrow subset). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-flatmap-filter",
+    "source": "rules/js-flatmap-filter.md",
+    "rule": "Use flatMap instead of .map(...).filter(Boolean).",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "unicorn/prefer-array-flat-map (map().flat()) and no-unnecessary-array-flat-map did NOT flag `.map(...).filter(Boolean)`.",
+    "notes": "Sketch: no-restricted-syntax selector for CallExpression[callee.property.name=filter][arguments.0.name=Boolean] > callee.object .map(...). Checked unicorn 77.0.0. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-hoist-regexp",
+    "source": "rules/js-hoist-regexp.md",
+    "rule": "Do not create RegExp inside render/loops; hoist to module scope or useMemo.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag regex literal / new RegExp with constant args inside function bodies. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-index-maps",
+    "source": "rules/js-index-maps.md",
+    "rule": "Build a Map for repeated .find() lookups by the same key.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag .find() inside map/forEach/loop callbacks comparing to an outer-scope array. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-length-check-first",
+    "source": "rules/js-length-check-first.md",
+    "rule": "Check array lengths before expensive array comparison.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Needs judgment about which comparisons are expensive. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-min-max-loop",
+    "source": "rules/js-min-max-loop.md",
+    "rule": "Use a single loop (or Math.min/max) for min/max instead of sorting.",
+    "status": "partial",
+    "tool": "eslint-plugin-unicorn",
+    "toolRuleId": "unicorn/no-array-sort-for-min-max",
+    "gap": "Only fires on simple numeric comparators (a - b) followed directly by [0]/.at(-1); property comparators (a.updatedAt - b.updatedAt) and results stored in a variable first were not flagged.",
+    "notes": "Fires on `[...nums].sort((a,b)=>a-b)[0]`, not on the skill's property-comparator example (unicorn 77.0.0). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-request-idle-callback",
+    "source": "rules/js-request-idle-callback.md",
+    "rule": "Defer non-critical work with requestIdleCallback.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-set-map-lookups",
+    "source": "rules/js-set-map-lookups.md",
+    "rule": "Convert arrays to Set/Map for repeated membership checks.",
+    "status": "partial",
+    "tool": "eslint-plugin-unicorn",
+    "toolRuleId": "unicorn/prefer-set-has",
+    "gap": "Only flags an array variable used solely for .includes(); not arrays from params/props, and not Map conversions for lookups.",
+    "notes": "Fires on bad example (const array + includes), clean on Set version (unicorn 77.0.0). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "js-tosorted-immutable",
+    "source": "rules/js-tosorted-immutable.md",
+    "rule": "Use toSorted() instead of sort() so props/state are not mutated.",
+    "status": "covered",
+    "tool": "eslint-plugin-unicorn",
+    "toolRuleId": "unicorn/no-array-sort",
+    "gap": null,
+    "notes": "Requires {allowExpressionStatement:false}; default (true) ignores statement-position `arr.sort()`. Fires on skill bad example (useMemo users.sort), clean on toSorted (unicorn 77.0.0). Also flags `[...items].sort()`, which the skill lists as an old-browser fallback. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-activity",
+    "source": "rules/rendering-activity.md",
+    "rule": "Use <Activity> to preserve state/DOM for frequently toggled expensive components.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-animate-svg-wrapper",
+    "source": "rules/rendering-animate-svg-wrapper.md",
+    "rule": "Animate a wrapper div instead of the SVG element itself.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: JSX rule flagging animation class/style props (animate-*, style.animation) on <svg>. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-conditional-render",
+    "source": "rules/rendering-conditional-render.md",
+    "rule": "Use ternary instead of && when the condition can be 0/NaN.",
+    "status": "covered",
+    "tool": "eslint-plugin-react",
+    "toolRuleId": "react/jsx-no-leaked-render",
+    "gap": null,
+    "notes": "Default options ([\"ternary\",\"coerce\"]). Fires on `count &&`, clean on ternary and on `count > 0 &&` (eslint-plugin-react 7.37.5). Type-agnostic: also flags `bool &&`, so stricter than the skill; fix is ternary or !!x. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-content-visibility",
+    "source": "rules/rendering-content-visibility.md",
+    "rule": "Apply content-visibility: auto to long list items.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Could be a CSS/Lighthouse check but no audit maps to it.",
+    "notes": "Judgment about which lists are long. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-hoist-jsx",
+    "source": "rules/rendering-hoist-jsx.md",
+    "rule": "Hoist static JSX elements out of components.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag JSX element with no identifiers/expressions returned from a component (constant subtree). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-hydration-no-flicker",
+    "source": "rules/rendering-hydration-no-flicker.md",
+    "rule": "Use a synchronous inline script to avoid hydration flicker for client-only storage data.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-hydration-suppress-warning",
+    "source": "rules/rendering-hydration-suppress-warning.md",
+    "rule": "Use suppressHydrationWarning only for expected mismatches.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment about expected vs real mismatch. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-resource-hints",
+    "source": "rules/rendering-resource-hints.md",
+    "rule": "Use React DOM resource hints (prefetchDNS, preconnect, preload).",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-script-defer-async",
+    "source": "rules/rendering-script-defer-async.md",
+    "rule": "Script tags with src must have defer or async.",
+    "status": "covered",
+    "tool": "@next/eslint-plugin-next",
+    "toolRuleId": "@next/next/no-sync-scripts",
+    "gap": null,
+    "notes": "Fires on skill bad example (`<script src>` x2), clean with async/defer (@next/eslint-plugin-next 16.4.0). The Next-specific advice to prefer next/script is not enforced. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-svg-precision",
+    "source": "rules/rendering-svg-precision.md",
+    "rule": "Reduce SVG coordinate precision.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "svgo handles this, not a lint rule.",
+    "notes": "Build-step concern (svgo). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rendering-usetransition-loading",
+    "source": "rules/rendering-usetransition-loading.md",
+    "rule": "Use useTransition instead of manual useState loading flags.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag useState boolean named isLoading/loading set true/false around an await in a handler. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-defer-reads",
+    "source": "rules/rerender-defer-reads.md",
+    "rule": "Do not subscribe to dynamic state (searchParams, storage) if only read inside callbacks.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-dependencies",
+    "source": "rules/rerender-dependencies.md",
+    "rule": "Use primitive dependencies (user.id) instead of objects (user) in effect deps.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "react-hooks/exhaustive-deps, exhaustive-effect-dependencies and memoized-effect-dependencies did not flag `[user]` where only user.id is used.",
+    "notes": "Sketch: custom rule comparing effect dep identifiers with member accesses used in the body. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-derived-state-no-effect:mirror-state-in-effect",
+    "source": "rules/rerender-derived-state-no-effect.md",
+    "rule": "Do not store derived values in state updated by an effect; compute during render.",
+    "status": "covered",
+    "tool": "eslint-plugin-react-you-might-not-need-an-effect",
+    "toolRuleId": "react-you-might-not-need-an-effect/no-derived-state",
+    "gap": null,
+    "notes": "Fires on skill bad example (fullName), clean on derived version (plugin 1.0.2). Does not catch `useState(prop)` copies with no effect (only the effect form). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-derived-state-no-effect:set-state-on-prop-change",
+    "source": "rules/rerender-derived-state-no-effect.md",
+    "rule": "Do not set state in effects solely in response to prop changes; use derived values or keyed resets.",
+    "status": "covered",
+    "tool": "eslint-plugin-react-you-might-not-need-an-effect",
+    "toolRuleId": "react-you-might-not-need-an-effect/no-adjust-state-on-prop-change",
+    "gap": null,
+    "notes": "Fires on `useEffect(()=>setSel(null),[items])` (plugin 1.0.2). Complementary react-hooks/set-state-in-effect (7.1.1) also fires and is enabled too; it is stricter (flags any synchronous setState in effect). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-derived-state",
+    "source": "rules/rerender-derived-state.md",
+    "rule": "Subscribe to derived boolean state instead of continuous values.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-functional-setstate",
+    "source": "rules/rerender-functional-setstate.md",
+    "rule": "Use functional setState updates when the new state depends on the old.",
+    "status": "partial",
+    "tool": "eslint-plugin-react-hooks",
+    "toolRuleId": "react-hooks/exhaustive-deps",
+    "gap": "Only catches the stale-closure variant (missing dep in useCallback([])). The recreated-callback variant (`setItems([...items,...])` with items in deps) is not flagged.",
+    "notes": "Fires \"missing dependency: items\" on the skill second bad example (react-hooks 7.1.1). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-lazy-state-init",
+    "source": "rules/rerender-lazy-state-init.md",
+    "rule": "Pass an initializer function to useState for expensive initial values.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule.",
+    "notes": "Sketch: flag useState(<CallExpression>) where callee is not a hook/constructor and arg is not a function. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-memo-with-default-value",
+    "source": "rules/rerender-memo-with-default-value.md",
+    "rule": "Extract non-primitive default props of memoized components to constants.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "react-perf/jsx-no-new-function-as-prop concerns JSX props, not destructuring defaults in memo().",
+    "notes": "Sketch: flag default ArrowFunction/ObjectExpression/ArrayExpression in destructured params of a memo(...) wrapped component. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-memo",
+    "source": "rules/rerender-memo.md",
+    "rule": "Extract expensive work into memoized components to allow early returns.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-move-effect-to-event",
+    "source": "rules/rerender-move-effect-to-event.md",
+    "rule": "Run user-action side effects in event handlers, not state + effect.",
+    "status": "partial",
+    "tool": "eslint-plugin-react-you-might-not-need-an-effect",
+    "toolRuleId": "react-you-might-not-need-an-effect/no-event-handler",
+    "gap": "Only detects the state-flag-then-effect pattern; other effect-as-handler shapes are missed.",
+    "notes": "Fires on submitted-flag + effect post() example (plugin 1.0.2). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-no-inline-components",
+    "source": "rules/rerender-no-inline-components.md",
+    "rule": "Do not define components inside other components.",
+    "status": "covered",
+    "tool": "eslint-plugin-react",
+    "toolRuleId": "react/no-unstable-nested-components",
+    "gap": null,
+    "notes": "Fires on arrow and function-declaration nested components, clean on hoisted version (eslint-plugin-react 7.37.5). react-hooks/static-components (7.1.1) also fires; both enabled. Needs settings.react.version to avoid a warning. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-simple-expression-in-memo",
+    "source": "rules/rerender-simple-expression-in-memo.md",
+    "rule": "Do not wrap simple primitive-result expressions in useMemo.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "react-hooks/use-memo did not flag useMemo(() => a.x > 1 && b.y).",
+    "notes": "Sketch: flag useMemo whose callback body is a single expression with only logical/arithmetic operators and no calls. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-split-combined-hooks",
+    "source": "rules/rerender-split-combined-hooks.md",
+    "rule": "Split hooks that combine independent tasks with different dependencies.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-transitions",
+    "source": "rules/rerender-transitions.md",
+    "rule": "Mark frequent non-urgent state updates as transitions.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-use-deferred-value",
+    "source": "rules/rerender-use-deferred-value.md",
+    "rule": "Use useDeferredValue to keep input responsive during expensive renders.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "rerender-use-ref-transient-values",
+    "source": "rules/rerender-use-ref-transient-values.md",
+    "rule": "Use useRef for frequently changing values that should not re-render.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "advanced-effect-event-deps",
+    "source": "rules/advanced-effect-event-deps.md",
+    "rule": "Do not put useEffectEvent results in dependency arrays.",
+    "status": "covered",
+    "tool": "eslint-plugin-react-hooks",
+    "toolRuleId": "react-hooks/exhaustive-deps",
+    "gap": null,
+    "notes": "Fires \"Functions returned from useEffectEvent must not be included in the dependency array\" on skill bad example, clean on good (react-hooks 7.1.1). Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "advanced-event-handler-refs",
+    "source": "rules/advanced-event-handler-refs.md",
+    "rule": "Store event handlers in refs for effects that should not re-subscribe.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "advanced-init-once",
+    "source": "rules/advanced-init-once.md",
+    "rule": "Do not do app-wide one-time init in useEffect([]); use a module-level guard.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Cannot tell which effects are app-wide init. Also present in compiled AGENTS.md."
+  },
+  {
+    "id": "advanced-use-latest",
+    "source": "rules/advanced-use-latest.md",
+    "rule": "Use useEffectEvent/useLatest for stable callback refs.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Judgment. Also present in compiled AGENTS.md."
+  }
+]

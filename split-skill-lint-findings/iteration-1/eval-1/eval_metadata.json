@@ -1,0 +1,12 @@
+{
+ "eval_id": 1,
+ "eval_name": "extract-and-map-only",
+ "prompt": "I want to move the lintable rules of the vercel react best practices skill into ESLint. Skill is at <scratch>/upstream/agent-skills/skills/react-best-practices, name it vercel-react-best-practices, output into a fresh repo at <scratch>/out-1. Do steps 1 and 2 only (extraction and mapping), then stop at the second checkpoint with the status counts and covered list.",
+ "assertions": [
+  "Reports the rule count and a 10-rule sample",
+  "Reports counts per status and a full covered list with plugin rule IDs",
+  "Every covered rule ID exists in an installed plugin (script check)",
+  "Does not create a skills/ fork yet",
+  "Mapping JSON has all required fields for every rule"
+ ]
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "architecture-avoid-boolean-props",
+    "source": "rules/architecture-avoid-boolean-props.md",
+    "rule": "Do not add boolean props (isThread, isEditing, ...) to customize component behavior; use composition.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule limits boolean-prop count; react/boolean-prop-naming only checks naming.",
+    "notes": "Sketch: custom rule or ast-grep flagging components whose props type has >N boolean members."
+  },
+  {
+    "id": "architecture-compound-components",
+    "source": "rules/architecture-compound-components.md",
+    "rule": "Structure complex components as compound components sharing context, not render-prop/prop-drilling.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Not lintable: needs design judgment about component API shape."
+  },
+  {
+    "id": "state-decouple-implementation",
+    "source": "rules/state-decouple-implementation.md",
+    "rule": "Only the provider knows how state is managed; UI components consume the context interface.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Whole-program architecture judgment."
+  },
+  {
+    "id": "state-context-interface",
+    "source": "rules/state-context-interface.md",
+    "rule": "Define a generic context interface with state, actions, meta for dependency injection.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Design judgment."
+  },
+  {
+    "id": "state-lift-state",
+    "source": "rules/state-lift-state.md",
+    "rule": "Move state into provider components so siblings can access it.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Design judgment."
+  },
+  {
+    "id": "patterns-explicit-variants",
+    "source": "rules/patterns-explicit-variants.md",
+    "rule": "Create explicit variant components instead of boolean modes.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": null,
+    "notes": "Not lintable: needs design judgment about component API shape."
+  },
+  {
+    "id": "patterns-children-over-render-props",
+    "source": "rules/patterns-children-over-render-props.md",
+    "rule": "Use children for composition instead of renderX props.",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule flags props named render*.",
+    "notes": "Sketch: no-restricted-syntax selector on JSXAttribute[name.name=/^render[A-Z]/] would be crude; skill itself allows render props when parent provides data, so judgment remains."
+  },
+  {
+    "id": "react19-no-forwardref",
+    "source": "rules/react19-no-forwardref.md#Incorrect (forwardRef in React 19)",
+    "rule": "Do not use forwardRef (React 19+); pass ref as a regular prop.",
+    "status": "covered",
+    "tool": "eslint core",
+    "toolRuleId": "no-restricted-imports + no-restricted-syntax",
+    "gap": null,
+    "notes": "Fires on named import, aliased import (forwardRef as fr), and React.forwardRef(...) calls in bad fixtures; clean on good fixture (eslint 9.0.0 + typescript-eslint 8.46.0 parser). Not detected: require('react').forwardRef or other namespace names than React. React 19+ only."
+  },
+  {
+    "id": "react19-use-over-usecontext",
+    "source": "rules/react19-no-forwardref.md#Incorrect (useContext in React 19)",
+    "rule": "Use use(Context) instead of useContext(Context) (React 19+).",
+    "status": "covered",
+    "tool": "eslint core",
+    "toolRuleId": "no-restricted-imports + no-restricted-syntax",
+    "gap": null,
+    "notes": "Same evidence as react19-no-forwardref. Note: this config forbids useContext entirely, which is exactly the skill's stance. React 19+ only."
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "name": "skill-lint-configs",
+  "private": true,
+  "type": "module",
+  "description": "Shared ESLint setup for the lint companions of the forked skills in this repo. Versions are pinned: every rule mapping in ../mappings was verified against exactly these versions.",
+  "scripts": {
+    "lint": "eslint .",
+    "verify:vercel-react-best-practices": "node verify/vercel-react-best-practices.verify.mjs"
+  },
+  "devDependencies": {
+    "@eslint-react/eslint-plugin": "5.26.0",
+    "@next/eslint-plugin-next": "16.4.0",
+    "eslint": "9.39.5",
+    "eslint-plugin-barrel-files": "3.0.1",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-you-might-not-need-an-effect": "1.0.2",
+    "eslint-plugin-unicorn": "77.0.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "lucide-react": "1.55.0"
+  }
+}

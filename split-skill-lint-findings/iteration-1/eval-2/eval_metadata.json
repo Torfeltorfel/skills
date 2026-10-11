@@ -1,0 +1,13 @@
+{
+ "eval_id": 2,
+ "eval_name": "full-split-react-best-practices",
+ "prompt": "Run the whole split on the vercel react-best-practices skill (<scratch>/upstream/agent-skills/skills/react-best-practices, name vercel-react-best-practices) into <scratch>/out-2. I approve the granularity and the mapping as long as every covered rule was actually verified; continue through fork, lint config and docs, then give me the final summary.",
+ "assertions": [
+  "Mapping JSON has all required fields for every rule",
+  "Every covered/partial toolRuleId exists in the pinned plugin versions (script check)",
+  "Fork contains no rule marked covered, and still contains all non-covered rules",
+  "Rule counts in the fork's SKILL.md match the remaining rule files",
+  "Combined eslint config loads and resolves every rule ID",
+  "Final summary states rules removed and size reduction"
+ ]
+}

@@ -1,0 +1,702 @@
+[
+  {
+    "id": "async-cheap-condition-before-await",
+    "source": "rules/async-cheap-condition-before-await.md",
+    "rule": "Check cheap sync conditions before awaiting flags or remote values",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "async-defer-await",
+    "source": "rules/async-defer-await.md",
+    "rule": "Move await into branches where actually used",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: `await` whose result is only used inside one later branch, preceding an early return."
+  },
+  {
+    "id": "async-parallel",
+    "source": "rules/async-parallel.md",
+    "rule": "Use Promise.all() for independent operations",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: consecutive `const x = await a(); const y = await b();` where b's call does not reference x. no-await-in-loop was tested and does not flag this."
+  },
+  {
+    "id": "async-dependencies",
+    "source": "rules/async-dependencies.md",
+    "rule": "Use better-all for partial dependencies",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "async-api-routes",
+    "source": "rules/async-api-routes.md",
+    "rule": "Start promises early, await late in API routes",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "async-suspense-boundaries",
+    "source": "rules/async-suspense-boundaries.md",
+    "rule": "Use Suspense to stream content",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "bundle-barrel-imports",
+    "source": "rules/bundle-barrel-imports.md",
+    "rule": "Import directly, avoid barrel files",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: no-restricted-imports with a per-project list of barrel packages (or Next optimizePackageImports); needs project-specific config, not generic."
+  },
+  {
+    "id": "bundle-analyzable-paths",
+    "source": "rules/bundle-analyzable-paths.md",
+    "rule": "Prefer statically analyzable import and file-system paths to avoid broad bundles and traces",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: dynamic `import()` / fs paths built from non-literal expressions."
+  },
+  {
+    "id": "bundle-dynamic-imports",
+    "source": "rules/bundle-dynamic-imports.md",
+    "rule": "Use next/dynamic for heavy components",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "bundle-defer-third-party",
+    "source": "rules/bundle-defer-third-party.md",
+    "rule": "Load analytics/logging after hydration",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "bundle-conditional",
+    "source": "rules/bundle-conditional.md",
+    "rule": "Load modules only when feature is activated",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "bundle-preload",
+    "source": "rules/bundle-preload.md",
+    "rule": "Preload on hover/focus for perceived speed",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "server-auth-actions",
+    "source": "rules/server-auth-actions.md",
+    "rule": "Authenticate server actions like API routes",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: custom rule: functions in 'use server' files that mutate without calling an auth helper first."
+  },
+  {
+    "id": "server-cache-react",
+    "source": "rules/server-cache-react.md",
+    "rule": "Use React.cache() for per-request deduplication",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "server-cache-lru",
+    "source": "rules/server-cache-lru.md",
+    "rule": "Use LRU cache for cross-request caching",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "server-dedup-props",
+    "source": "rules/server-dedup-props.md",
+    "rule": "Avoid duplicate serialization in RSC props",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "server-hoist-static-io",
+    "source": "rules/server-hoist-static-io.md",
+    "rule": "Hoist static I/O (fonts, logos) to module level",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: fs.readFile/fetch of a literal path inside a function in a server module."
+  },
+  {
+    "id": "server-no-shared-module-state",
+    "source": "rules/server-no-shared-module-state.md",
+    "rule": "Avoid module-level mutable request state in RSC/SSR",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: custom rule: module-level `let` / mutable object assigned inside request handlers in server files."
+  },
+  {
+    "id": "server-serialization",
+    "source": "rules/server-serialization.md",
+    "rule": "Minimize data passed to client components",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "server-parallel-fetching",
+    "source": "rules/server-parallel-fetching.md",
+    "rule": "Restructure components to parallelize fetches",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "server-parallel-nested-fetching",
+    "source": "rules/server-parallel-nested-fetching.md",
+    "rule": "Chain nested fetches per item in Promise.all",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "server-after-nonblocking",
+    "source": "rules/server-after-nonblocking.md",
+    "rule": "Use after() for non-blocking operations",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "client-swr-dedup",
+    "source": "rules/client-swr-dedup.md",
+    "rule": "Use SWR for automatic request deduplication",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "client-event-listeners",
+    "source": "rules/client-event-listeners.md",
+    "rule": "Deduplicate global event listeners",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "client-passive-event-listeners",
+    "source": "rules/client-passive-event-listeners.md",
+    "rule": "Use passive listeners for scroll",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: addEventListener('touchstart'|'touchmove'|'wheel', fn) without a third argument containing passive: true."
+  },
+  {
+    "id": "client-localstorage-schema",
+    "source": "rules/client-localstorage-schema.md",
+    "rule": "Version and minimize localStorage data",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rerender-defer-reads",
+    "source": "rules/rerender-defer-reads.md",
+    "rule": "Don't subscribe to state only used in callbacks",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rerender-memo",
+    "source": "rules/rerender-memo.md",
+    "rule": "Extract expensive work into memoized components",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rerender-memo-with-default-value",
+    "source": "rules/rerender-memo-with-default-value.md",
+    "rule": "Hoist default non-primitive props",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: custom rule: memo() component whose destructured param default is an inline array/object/function."
+  },
+  {
+    "id": "rerender-dependencies",
+    "source": "rules/rerender-dependencies.md",
+    "rule": "Use primitive dependencies in effects",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: custom rule: useEffect deps containing an object identifier that is only read through one property. exhaustive-deps and exhaustive-effect-dependencies were run on the incorrect example and did not report it."
+  },
+  {
+    "id": "rerender-derived-state",
+    "source": "rules/rerender-derived-state.md",
+    "rule": "Subscribe to derived booleans, not raw values",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rerender-derived-state-no-effect",
+    "source": "rules/rerender-derived-state-no-effect.md",
+    "rule": "Derive state during render, not effects",
+    "status": "covered",
+    "tool": "eslint-plugin-react-you-might-not-need-an-effect",
+    "toolRuleId": "react-you-might-not-need-an-effect/no-derived-state",
+    "gap": null,
+    "notes": "no-derived-state fires on the useState+useEffect fullName example, clean on the derived-in-render example. Second sentence of the rule (no setState in effects solely on prop change) is covered by react-you-might-not-need-an-effect/no-adjust-state-on-prop-change, which fires on a setSelection(null)-on-[items] snippet. Plugin v1.0.2."
+  },
+  {
+    "id": "rerender-functional-setstate",
+    "source": "rules/rerender-functional-setstate.md",
+    "rule": "Use functional setState for stable callbacks",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: setX(...) inside useCallback that reads X from closure instead of the functional form."
+  },
+  {
+    "id": "rerender-lazy-state-init",
+    "source": "rules/rerender-lazy-state-init.md",
+    "rule": "Pass function to useState for expensive values",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: useState(<call expression>) where the argument is not an arrow function."
+  },
+  {
+    "id": "rerender-simple-expression-in-memo",
+    "source": "rules/rerender-simple-expression-in-memo.md",
+    "rule": "Avoid memo for simple primitives",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: useMemo returning a primitive logical/arithmetic expression. react-hooks/use-memo did not flag the skill's example."
+  },
+  {
+    "id": "rerender-split-combined-hooks",
+    "source": "rules/rerender-split-combined-hooks.md",
+    "rule": "Split hooks with independent dependencies",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rerender-move-effect-to-event",
+    "source": "rules/rerender-move-effect-to-event.md",
+    "rule": "Put interaction logic in event handlers",
+    "status": "covered",
+    "tool": "eslint-plugin-react-you-might-not-need-an-effect",
+    "toolRuleId": "react-you-might-not-need-an-effect/no-event-handler",
+    "gap": null,
+    "notes": "Fires on the skill's submitted-state + effect example, clean on the handler version (v1.0.2). Detection is heuristic (state set in a handler and read in an effect), so variants of the pattern may be missed; skill example itself is caught."
+  },
+  {
+    "id": "rerender-transitions",
+    "source": "rules/rerender-transitions.md",
+    "rule": "Use startTransition for non-urgent updates",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rerender-use-deferred-value",
+    "source": "rules/rerender-use-deferred-value.md",
+    "rule": "Defer expensive renders to keep input responsive",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rerender-use-ref-transient-values",
+    "source": "rules/rerender-use-ref-transient-values.md",
+    "rule": "Use refs for transient frequent values",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rerender-no-inline-components",
+    "source": "rules/rerender-no-inline-components.md",
+    "rule": "Don't define components inside components",
+    "status": "covered",
+    "tool": "eslint-plugin-react",
+    "toolRuleId": "react/no-unstable-nested-components",
+    "gap": null,
+    "notes": "Fires on both inline components in the skill's incorrect example, clean on the correct example (eslint-plugin-react 7.37.5)."
+  },
+  {
+    "id": "rendering-animate-svg-wrapper",
+    "source": "rules/rendering-animate-svg-wrapper.md",
+    "rule": "Animate div wrapper, not SVG element",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: motion/animate props or animate-* class on an <svg> element."
+  },
+  {
+    "id": "rendering-content-visibility",
+    "source": "rules/rendering-content-visibility.md",
+    "rule": "Use content-visibility for long lists",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rendering-hoist-jsx",
+    "source": "rules/rendering-hoist-jsx.md",
+    "rule": "Extract static JSX outside components",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: custom rule: JSX element with no references to component scope created inside a component body. Not needed when React Compiler is on."
+  },
+  {
+    "id": "rendering-svg-precision",
+    "source": "rules/rendering-svg-precision.md",
+    "rule": "Reduce SVG coordinate precision",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep/regex: SVG path d attributes with more than N decimal places."
+  },
+  {
+    "id": "rendering-hydration-no-flicker",
+    "source": "rules/rendering-hydration-no-flicker.md",
+    "rule": "Use inline script for client-only data",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rendering-hydration-suppress-warning",
+    "source": "rules/rendering-hydration-suppress-warning.md",
+    "rule": "Suppress expected mismatches",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rendering-activity",
+    "source": "rules/rendering-activity.md",
+    "rule": "Use Activity component for show/hide",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rendering-conditional-render",
+    "source": "rules/rendering-conditional-render.md",
+    "rule": "Use ternary, not && for conditionals",
+    "status": "covered",
+    "tool": "eslint-plugin-react",
+    "toolRuleId": "react/jsx-no-leaked-render",
+    "gap": null,
+    "notes": "Default options. Fires on `count && <span/>`, clean on the ternary example (7.37.5). Not type-aware: also flags `boolean && <X/>` (false positives) and accepts `!!count &&` as an alternative fix. validStrategies ['ternary'] was also tried: it flags every `&&` including `count > 0 &&`, stricter than the skill, so defaults are used."
+  },
+  {
+    "id": "rendering-usetransition-loading",
+    "source": "rules/rendering-usetransition-loading.md",
+    "rule": "Prefer useTransition for loading state",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rendering-resource-hints",
+    "source": "rules/rendering-resource-hints.md",
+    "rule": "Use React DOM resource hints for preloading",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "rendering-script-defer-async",
+    "source": "rules/rendering-script-defer-async.md",
+    "rule": "Use defer or async on script tags",
+    "status": "covered",
+    "tool": "@next/eslint-plugin-next",
+    "toolRuleId": "@next/next/no-sync-scripts",
+    "gap": null,
+    "notes": "Fires on both `<script src>` without async/defer in the incorrect example, clean when async/defer are present (v16.4.0). The advice to prefer next/script over raw script tags is a side note in the skill and is not enforced."
+  },
+  {
+    "id": "js-batch-dom-css",
+    "source": "rules/js-batch-dom-css.md",
+    "rule": "Group CSS changes via classes or cssText",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "js-index-maps",
+    "source": "rules/js-index-maps.md",
+    "rule": "Build Map for repeated lookups",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "js-cache-property-access",
+    "source": "rules/js-cache-property-access.md",
+    "rule": "Cache object properties in loops",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "js-cache-function-results",
+    "source": "rules/js-cache-function-results.md",
+    "rule": "Cache function results in module-level Map",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "js-cache-storage",
+    "source": "rules/js-cache-storage.md",
+    "rule": "Cache localStorage/sessionStorage reads",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: custom rule: repeated localStorage.getItem with the same key within one function/module."
+  },
+  {
+    "id": "js-combine-iterations",
+    "source": "rules/js-combine-iterations.md",
+    "rule": "Combine multiple filter/map into one loop",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: chained .filter().map() or multiple filters on the same array."
+  },
+  {
+    "id": "js-length-check-first",
+    "source": "rules/js-length-check-first.md",
+    "rule": "Check array length before expensive comparison",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "js-early-exit",
+    "source": "rules/js-early-exit.md",
+    "rule": "Return early from functions",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "js-hoist-regexp",
+    "source": "rules/js-hoist-regexp.md",
+    "rule": "Hoist RegExp creation outside loops",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: `new RegExp(` or regex literal inside a function body / component without useMemo. Not covered by unicorn/better-regex (different purpose)."
+  },
+  {
+    "id": "js-min-max-loop",
+    "source": "rules/js-min-max-loop.md",
+    "rule": "Use loop for min/max instead of sort",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: `[...x].sort(...)[0]` or sorted[sorted.length-1] patterns. unicorn/prefer-math-min-max is unrelated."
+  },
+  {
+    "id": "js-set-map-lookups",
+    "source": "rules/js-set-map-lookups.md",
+    "rule": "Use Set/Map for O(1) lookups",
+    "status": "partial",
+    "tool": "eslint-plugin-unicorn",
+    "toolRuleId": "unicorn/prefer-set-has",
+    "gap": "Only flags const arrays used solely for .includes(); misses inline arrays, array props/params, and non-includes lookups (find/indexOf in loops, Map).",
+    "notes": "Fires on the skill's `allowedIds.includes` example and is clean on the Set version (unicorn 63.0.0)."
+  },
+  {
+    "id": "js-tosorted-immutable",
+    "source": "rules/js-tosorted-immutable.md",
+    "rule": "Use toSorted() for immutability",
+    "status": "partial",
+    "tool": "eslint-plugin-unicorn",
+    "toolRuleId": "unicorn/no-array-sort",
+    "gap": "Also flags `[...arr].sort()`, the fallback the skill explicitly allows for old browsers; other immutable-method advice (toSpliced, with) is not covered; no-array-reverse exists for reverse but was not verified.",
+    "notes": "Fires on `users.sort(...)` in the skill's incorrect example; also fires on `[...users].sort(...)` and is clean on `.toSorted(...)` (unicorn 63.0.0). Rule is not type-aware."
+  },
+  {
+    "id": "js-flatmap-filter",
+    "source": "rules/js-flatmap-filter.md",
+    "rule": "Use flatMap to map and filter in one pass",
+    "status": "custom-possible",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "No existing rule found among the plugins checked.",
+    "notes": "Sketch: ast-grep: `.map(...).filter(Boolean)`. unicorn/prefer-array-flat-map targets .map().flat() and does not flag it (tested)."
+  },
+  {
+    "id": "js-request-idle-callback",
+    "source": "rules/js-request-idle-callback.md",
+    "rule": "Defer non-critical work to browser idle time",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "advanced-effect-event-deps",
+    "source": "rules/advanced-effect-event-deps.md",
+    "rule": "Don't put `useEffectEvent` results in effect deps",
+    "status": "covered",
+    "tool": "eslint-plugin-react-hooks",
+    "toolRuleId": "react-hooks/exhaustive-deps",
+    "gap": null,
+    "notes": "v7.1.1 reports 'Functions returned from `useEffectEvent` must not be included in the dependency array' on the skill's incorrect example, clean on the correct one."
+  },
+  {
+    "id": "advanced-event-handler-refs",
+    "source": "rules/advanced-event-handler-refs.md",
+    "rule": "Store event handlers in refs",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "advanced-init-once",
+    "source": "rules/advanced-init-once.md",
+    "rule": "Initialize app once per app load",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  },
+  {
+    "id": "advanced-use-latest",
+    "source": "rules/advanced-use-latest.md",
+    "rule": "useLatest for stable callback refs",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs judgment, runtime knowledge or whole-program reasoning.",
+    "notes": null
+  }
+]

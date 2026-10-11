@@ -1,0 +1,172 @@
+[
+  {
+    "id": "cp-01",
+    "source": "upstream:rules/architecture-avoid-boolean-props.md > Avoid Boolean Prop Proliferation",
+    "rule": "Do not add boolean props (isThread, isEditing, ...) to customize component behavior; use composition.",
+    "status": "partial",
+    "tool": "eslint core",
+    "toolRuleId": "no-restricted-syntax",
+    "gap": "Name-pattern heuristic (isX/hasX/showX/shouldX typed boolean in a props type); cannot tell props types from other types and misses other names. react/boolean-prop-naming only enforces naming, does not forbid booleans.",
+    "notes": "Verified firing in scratch (warn). Rule stays in skill text."
+  },
+  {
+    "id": "cp-02",
+    "source": "upstream:rules/architecture-compound-components.md > Use Compound Components",
+    "rule": "Structure complex components as compound components with a shared context.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Architectural judgement.",
+    "notes": ""
+  },
+  {
+    "id": "cp-03",
+    "source": "upstream:rules/architecture-compound-components.md > Use Compound Components",
+    "rule": "Subcomponents read shared state via context, not props.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Needs data-flow analysis of intent.",
+    "notes": ""
+  },
+  {
+    "id": "cp-04",
+    "source": "upstream:rules/architecture-compound-components.md > Use Compound Components",
+    "rule": "State, actions and meta are dependency-injected by a parent provider so a structure can be reused.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Architectural judgement.",
+    "notes": ""
+  },
+  {
+    "id": "cp-05",
+    "source": "upstream:rules/state-decouple-implementation.md > Decouple State Management from UI",
+    "rule": "The provider is the only place that knows how state is managed; UI components must not call state-implementation hooks (e.g. useGlobalChannelState).",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Which hooks are 'implementation' is project specific; could be a project-specific no-restricted-imports but not generic.",
+    "notes": "Also covers the same point in state-context-interface.md (UI consumes the interface, not the implementation)."
+  },
+  {
+    "id": "cp-06",
+    "source": "upstream:rules/state-context-interface.md > Define Generic Context Interfaces for Dependency Injection",
+    "rule": "Define the context value as a generic interface with state, actions and meta that any provider can implement.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Shape/design check; no existing rule.",
+    "notes": ""
+  },
+  {
+    "id": "cp-07",
+    "source": "upstream:rules/state-context-interface.md > Define Generic Context Interfaces for Dependency Injection",
+    "rule": "UI outside the main frame may read state/actions as long as it is inside the provider.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Guidance, not a checkable constraint.",
+    "notes": ""
+  },
+  {
+    "id": "cp-08",
+    "source": "upstream:rules/state-lift-state.md > Lift State into Provider Components",
+    "rule": "Move state into dedicated provider components so siblings outside the main UI can access it without prop drilling.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Design guidance.",
+    "notes": ""
+  },
+  {
+    "id": "cp-09",
+    "source": "upstream:rules/state-lift-state.md > Lift State into Provider Components",
+    "rule": "Do not sync state up to a parent with useEffect (effect calling a parent callback with state).",
+    "status": "covered",
+    "tool": "eslint-plugin-react-you-might-not-need-an-effect",
+    "toolRuleId": "react-you-might-not-need-an-effect/no-pass-live-state-to-parent",
+    "gap": "Detects prop callbacks called with state inside an effect; callbacks reached via context or other indirection are not seen.",
+    "notes": "Verified on the skill's own incorrect example (error). no-pass-data-to-parent also enabled."
+  },
+  {
+    "id": "cp-10",
+    "source": "upstream:rules/react19-no-forwardref.md > React 19 API Changes",
+    "rule": "React 19: do not use forwardRef; accept ref as a regular prop.",
+    "status": "covered",
+    "tool": "eslint-plugin-react-x",
+    "toolRuleId": "react-x/no-forward-ref",
+    "gap": "Only active when react-x settings version >= 19; no-restricted-imports also set for named imports.",
+    "notes": "Verified on skill's incorrect example (error); clean ref-as-prop code passes."
+  },
+  {
+    "id": "cp-11",
+    "source": "upstream:rules/react19-no-forwardref.md > React 19 API Changes",
+    "rule": "React 19: use use(Context) instead of useContext(Context).",
+    "status": "covered",
+    "tool": "eslint-plugin-react-x",
+    "toolRuleId": "react-x/no-use-context",
+    "gap": "Same React 19 version caveat; no-restricted-imports also set for named imports.",
+    "notes": "Verified (error); use() code passes."
+  },
+  {
+    "id": "cp-12",
+    "source": "upstream:rules/patterns-children-over-render-props.md > Prefer Children Over Render Props",
+    "rule": "Use children for composition instead of renderX props.",
+    "status": "partial",
+    "tool": "eslint core",
+    "toolRuleId": "no-restricted-syntax",
+    "gap": "Name heuristic /^render[A-Z]/ in props types; also flags legitimate data-passing render props (renderItem), which the skill allows (cp-13).",
+    "notes": "Verified firing in scratch (warn)."
+  },
+  {
+    "id": "cp-13",
+    "source": "upstream:rules/patterns-children-over-render-props.md > Prefer Children Over Render Props",
+    "rule": "Render props are acceptable only when the parent must pass data or state back to the child.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Intent-dependent.",
+    "notes": ""
+  },
+  {
+    "id": "cp-14",
+    "source": "upstream:rules/patterns-explicit-variants.md > Create Explicit Component Variants",
+    "rule": "Create explicit variant components (ThreadComposer, EditMessageComposer) instead of one component with boolean modes.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Design guidance; boolean part partly in cp-01.",
+    "notes": ""
+  },
+  {
+    "id": "cp-15",
+    "source": "upstream:rules/patterns-explicit-variants.md > Create Explicit Component Variants",
+    "rule": "Each variant states its own provider, UI pieces and actions, sharing parts with other variants.",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Design guidance.",
+    "notes": ""
+  },
+  {
+    "id": "cp-16",
+    "source": "upstream:rules/state-lift-state.md > Lift State into Provider Components",
+    "rule": "Do not read composer state from a ref on submit (stateRef passed down).",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Could be matched by custom selector but false-positive prone; none exists.",
+    "notes": ""
+  },
+  {
+    "id": "cp-17",
+    "source": "upstream:rules/react19-no-forwardref.md > React 19 API Changes",
+    "rule": "use() may be called conditionally, unlike useContext().",
+    "status": "not-lintable",
+    "tool": null,
+    "toolRuleId": null,
+    "gap": "Informational fact, not a constraint.",
+    "notes": ""
+  }
+]

@@ -1,0 +1,12 @@
+{
+ "eval_id": 3,
+ "eval_name": "second-skill-into-existing-repo",
+ "prompt": "Add a second skill to an existing repo: do the split for composition-patterns (<scratch>/upstream/agent-skills/skills/composition-patterns) into a copy of the seed repo (which already contains another skill, demo-skill, that must not be touched except for registering the new config). Approve checkpoints automatically if verification is solid.",
+ "assertions": [
+  "demo-skill files unchanged except the combined config import",
+  "Combined eslint config imports both skills",
+  "lint/package.json keeps eslint 9.0.0 entry and adds new plugins",
+  "README lists both skills",
+  "Mapping JSON for composition-patterns exists with all fields"
+ ]
+}
