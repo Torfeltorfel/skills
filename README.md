@@ -2,21 +2,30 @@
 
 Entdecke Live-Bands, die du noch nicht kennst, die zu deinem Spotify-Geschmack passen und bald in deinen Lieblings-Venues spielen. Jede Woche kommen neue Konzerte dazu, die besten 12 landen in einer Spotify-Playlist und auf einer Übersichtsseite.
 
+## Schnellstart
+
+Kopiere diesen Prompt in einen neuen Claude-Chat (am besten auf claude.ai im Browser oder in der Desktop-App):
+
+```
+Richte mir bitte Band Buddy ein. Mach alles selbst und frag mich nur, was du wirklich von mir brauchst.
+
+1. Lies die Skill-Datei https://raw.githubusercontent.com/Torfeltorfel/band-buddy/main/plugins/band-buddy/skills/band-buddy/SKILL.md und speichere sie unverändert als Skill „band-buddy“ in meinem Konto. Kannst du Skills nicht selbst speichern, erklär mir kurz, wie ich das mache, und mach danach trotzdem weiter.
+2. Lies dann https://raw.githubusercontent.com/Torfeltorfel/band-buddy/main/plugins/band-buddy/skills/band-buddy/setup.md und führe das Setup Schritt für Schritt mit mir durch.
+```
+
+Das Setup fragt nach deiner Stadt und deinen Lieblings-Venues und dauert etwa 10–15 Minuten.
+
 ## Was du brauchst
 
-- Claude mit geplanten Aufgaben
-- Spotify- und Notion-Connector
+- Einen bezahlten Claude-Plan mit geplanten Aufgaben
+- Ein Spotify-Konto und ein Notion-Konto (Notion kostenlos reicht); Claude hilft beim Verbinden
 
-## Installation
-
-Claude Code:
+## Installation in Claude Code
 
 ```
 claude plugin marketplace add Torfeltorfel/band-buddy
 claude plugin install band-buddy@band-buddy
 ```
-
-claude.ai: in einem Chat sagen: „Installiere den Skill von https://raw.githubusercontent.com/Torfeltorfel/band-buddy/main/plugins/band-buddy/skills/band-buddy/SKILL.md“.
 
 Danach zu Claude sagen: **„Band Buddy einrichten“**.
 
