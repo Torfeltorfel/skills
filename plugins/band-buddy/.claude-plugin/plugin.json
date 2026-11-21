@@ -1,0 +1,9 @@
+{
+  "name": "band-buddy",
+  "version": "0.2.0",
+  "description": "Wöchentlicher Scout für unbekannte Live-Bands in deiner Stadt: Venue-Quellen, Spotify-Geschmack, Notion als Speicher, Top-12-Playlist und feste Übersichtsseite.",
+  "author": {
+    "name": "Torben"
+  },
+  "repository": "https://github.com/Torfeltorfel/band-buddy"
+}

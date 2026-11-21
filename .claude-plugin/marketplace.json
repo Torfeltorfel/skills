@@ -1,0 +1,14 @@
+{
+  "name": "band-buddy",
+  "description": "Band Buddy: entdecke unbekannte Live-Bands in deiner Stadt, passend zu deinem Spotify-Geschmack.",
+  "owner": {
+    "name": "Torben"
+  },
+  "plugins": [
+    {
+      "name": "band-buddy",
+      "source": "./plugins/band-buddy",
+      "description": "Wöchentlicher Scout für Live-Bands in deinen Lieblings-Venues, mit Spotify-Playlist und Übersichtsseite."
+    }
+  ]
+}
