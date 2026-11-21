@@ -141,11 +141,21 @@ function meter(b){
   let s=""; for(let i=0;i<10;i++) s+=`<i class="${i<m?"m":i<m+e?"e":""}"></i>`;
   return `<div class="meter" title="Gemessen ${m} + Geschätzt ${e}"><div class="seg">${s}</div><span class="score">${esc(b.score??"–")}/10</span></div>`;
 }
+function calLink(b){
+  // Standard: 19–22 Uhr Ortszeit, da die Datenbank keine Uhrzeit kennt
+  const d=b.datum.replace(/-/g,"");
+  let tz=""; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone||""; }catch(_){}
+  const details=[b.begruendung,b.spotify,"Uhrzeit geschätzt (19 Uhr), bitte im Programm prüfen."].filter(Boolean).join("\n");
+  const p={action:"TEMPLATE",text:b.band+" live",dates:d+"T190000/"+d+"T220000",location:(b.venue||"")+", "+CONFIG.city,details};
+  if(tz) p.ctz=tz;
+  return "https://calendar.google.com/calendar/render?"+new URLSearchParams(p).toString();
+}
 function gig(b){
   const g=group(b), d=b.datum?dt(b.datum):null;
   const date=d?`<div class="date"><span class="wd">${d.toLocaleDateString("de-DE",{weekday:"short"})}</span><span class="d">${d.getDate()}</span><span class="m">${d.toLocaleDateString("de-DE",{month:"short"})}</span></div>`:`<div class="date"><span class="d">–</span></div>`;
   const acts=[];
   if(b.spotify) acts.push(`<a class="btn small" href="${esc(b.spotify)}" target="_blank" rel="noopener">Auf Spotify anhören</a>`);
+  if(g!=="vorbei"&&b.datum) acts.push(`<a class="btn small" href="${esc(calLink(b))}" target="_blank" rel="noopener">In Google Kalender</a>`);
   if(mcp&&g!=="vorbei"){
     const dis=busy.has(b.url)?"disabled":"";
     acts.push(confirm===b.url
