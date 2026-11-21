@@ -16,19 +16,21 @@ claude plugin marketplace add Torfeltorfel/band-buddy
 claude plugin install band-buddy@band-buddy
 ```
 
-claude.ai: die beiden Ordner unter `plugins/band-buddy/skills/` als Skills hinzufügen.
+claude.ai: in einem Chat sagen: „Installiere den Skill von https://raw.githubusercontent.com/Torfeltorfel/band-buddy/main/plugins/band-buddy/skills/band-buddy/SKILL.md“.
 
 Danach zu Claude sagen: **„Band Buddy einrichten“**.
 
 ## Aufbau
 
-| Skill | Zweck |
+Ein Skill, `plugins/band-buddy/skills/band-buddy/`:
+
+| Datei | Zweck |
 |---|---|
-| `band-buddy` | Einmaliges Setup: Stadt, Venues und Programmquellen, Geschmack, Notion-Datenbank, Übersichtsseite, Wochen-Aufgabe |
-| `band-buddy-scan` | Wöchentlicher Lauf, von der geplanten Aufgabe mit deiner Konfiguration aufgerufen |
+| `SKILL.md` | Wochenlauf; erkennt am Block `KONFIGURATION`, dass er von der geplanten Aufgabe kommt |
+| `setup.md` | Einmaliges Setup, wird nur bei der Einrichtung gelesen |
 | `template.html` | Feste Vorlage der Übersichtsseite |
 
-Die Wochen-Aufgabe enthält nur deine Konfiguration und lädt `band-buddy-scan`. Verbesserungen am Scan wirken deshalb ohne neues Setup.
+Die Wochen-Aufgabe enthält nur deine Konfiguration und lädt den Skill. Verbesserungen wirken deshalb ohne neues Setup.
 
 ## Score
 
