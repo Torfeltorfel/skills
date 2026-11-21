@@ -142,11 +142,13 @@ function meter(b){
   return `<div class="meter" title="Gemessen ${m} + Geschätzt ${e}"><div class="seg">${s}</div><span class="score">${esc(b.score??"–")}/10</span></div>`;
 }
 function calLink(b){
-  const d=b.datum.replace(/-/g,""), n=new Date(dt(b.datum).getTime()+864e5);
-  const e=n.getFullYear()+String(n.getMonth()+1).padStart(2,"0")+String(n.getDate()).padStart(2,"0");
-  const details=[b.begruendung,b.spotify].filter(Boolean).join("\n");
-  const q=new URLSearchParams({action:"TEMPLATE",text:b.band+" live",dates:d+"/"+e,location:(b.venue||"")+", "+CONFIG.city,details});
-  return "https://calendar.google.com/calendar/render?"+q.toString();
+  // Standard: 19–22 Uhr Ortszeit, da die Datenbank keine Uhrzeit kennt
+  const d=b.datum.replace(/-/g,"");
+  let tz=""; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone||""; }catch(_){}
+  const details=[b.begruendung,b.spotify,"Uhrzeit geschätzt (19 Uhr), bitte im Programm prüfen."].filter(Boolean).join("\n");
+  const p={action:"TEMPLATE",text:b.band+" live",dates:d+"T190000/"+d+"T220000",location:(b.venue||"")+", "+CONFIG.city,details};
+  if(tz) p.ctz=tz;
+  return "https://calendar.google.com/calendar/render?"+new URLSearchParams(p).toString();
 }
 function gig(b){
   const g=group(b), d=b.datum?dt(b.datum):null;
